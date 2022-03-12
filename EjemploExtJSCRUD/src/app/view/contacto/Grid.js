@@ -40,7 +40,7 @@ Ext.define('EjemploExtJSCRUD.view.contacto.Grid' ,{
             }]
         },{
             xtype: 'pagingtoolbar',
-            dock: 'top',
+            dock: 'bottom',
             store: 'Contactos',
             displayInfo: true,
             displayMsg: 'Mostrando Contactos {0} - {1} de {2}',

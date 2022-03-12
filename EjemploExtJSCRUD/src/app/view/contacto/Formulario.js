@@ -6,6 +6,7 @@ Ext.define('EjemploExtJSCRUD.view.contacto.Formulario', {
  
     title : 'Editar/Crear Contacto',
     layout: 'fit',
+    modal: true,
     autoShow: true,
     width: 280,
      
