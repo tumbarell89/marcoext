@@ -5,7 +5,7 @@
     $v_start = $_REQUEST['start'];
     $v_limit = $_REQUEST['limit'];
  
-    $v_consultaString = "select id, name, email, phone from contact limit $v_start, $v_limit ";
+    $v_consultaString = "SELECT `idreserva`, `nombreapellidos`, `noboleto`, `nopasaporte` FROM `reserva` limit $v_start, $v_limit ";
     //print_r($v_consultaString);die;
  
     // Consulta sql.
@@ -20,10 +20,10 @@
 
     foreach ($v_consulta as $key => $value) {
         //print_r($value);die;
-        $v_array_contactos[$key]['id'] = $value[0];
-        $v_array_contactos[$key]['name'] = $value[1];
-        $v_array_contactos[$key]['email'] = $value[2];
-        $v_array_contactos[$key]['phone'] = $value[3];
+        $v_array_contactos[$key]['idreserva'] = $value[0];
+        $v_array_contactos[$key]['nombreapellidos'] = $value[1];
+        $v_array_contactos[$key]['noboleto'] = $value[2];
+        $v_array_contactos[$key]['nopasaporte'] = $value[3];
         // code...
     }
     //print_r($v_array_contactos);die;
@@ -31,7 +31,7 @@
     // Consulta de contactos de la tabla.
     //$v_cantidadTotal = $v_coneccion->query('SELECT count(*) as num FROM contact') or die(mysql_error());
 
-    $v_cantidadTotal = "SELECT count(*) as num FROM contact";
+    $v_cantidadTotal = "SELECT count(*) as num FROM reserva";
     $v_count = $v_coneccion->query($v_cantidadTotal)->fetch_all();
     //print_r($v_count);die;
 
