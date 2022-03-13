@@ -7,8 +7,6 @@ Ext.onReady(function(){
     var win;
         //button = Ext.get('show-btn');
 
-
-
         if (!win) {
             win = Ext.create('widget.window', {
                 xtype: 'login-form',
@@ -45,8 +43,6 @@ Ext.onReady(function(){
 						text:'Aceptar',
 						iconCls: 'icon-user',
 						handler: function () {
-
-							//console.log(33333333333333);
 
 							win.close();
 

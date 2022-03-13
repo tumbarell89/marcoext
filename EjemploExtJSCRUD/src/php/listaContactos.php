@@ -5,7 +5,7 @@
     $v_start = $_REQUEST['start'];
     $v_limit = $_REQUEST['limit'];
  
-    $v_consultaString = "SELECT `idreserva`, `nombreapellidos`, `noboleto`, `nopasaporte` FROM `reserva` limit $v_start, $v_limit ";
+    $v_consultaString = "SELECT `idreserva`, `nombreapellidos`, `noboleto`, `nopasaporte` FROM `reserva` order by idreserva DESC limit $v_start, $v_limit ";
     //print_r($v_consultaString);die;
  
     // Consulta sql.

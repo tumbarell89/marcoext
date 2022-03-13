@@ -14,7 +14,7 @@ Ext.define('EjemploExtJSCRUD.view.contacto.Formulario', {
  
     initComponent: function() {
         this.items = [{
-        	xtype: 'form',
+            xtype: 'form',
             padding: '5 5 0 5',
             border: false,
             style: 'background-color: #fff;',
@@ -62,7 +62,7 @@ Ext.define('EjemploExtJSCRUD.view.contacto.Formulario', {
             id: 'buttons',
             ui: 'footer',
             items: ['->', {
-                iconCls: 'icon-reset',
+                iconCls: 'icon-cancelar',
                 text: 'Cancelar',
                 scope: this,
                 handler: this.close

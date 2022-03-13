@@ -6,7 +6,7 @@ Ext.define('EjemploExtJSCRUD.view.contacto.Grid' ,{
  
     iconCls: 'icon-grid',
  
-    title: 'Contactos',
+    title: 'Listado de reservas',
     store: 'Contactos',
  
     columns: [{
@@ -39,10 +39,28 @@ Ext.define('EjemploExtJSCRUD.view.contacto.Grid' ,{
                 text: 'Adicionar reserva',
                 action: 'agregar'
             },'|',{
+                iconCls: 'icon-modificar',
+                text: 'Modificar reserva',
+                action: 'modificarreserva'
+            },'|',{
                 iconCls: 'icon-delete',
                 text: 'Eliminar reserva',
                 action: 'eliminarreservacion'
-            },'|']
+            },'|',{
+                xtype: 'textfield',
+                //allowBlank: false,
+                name: 'nombreapellidos',
+                //fieldLabel: 'Buscar',
+                emptyText: 'Buscar por Id. reserva'
+            },{
+                iconCls: 'icon-buscar',
+                //text: 'Eliminar reserva',
+                action: 'buscarreservacion'
+            },'->',{
+                iconCls: 'icon-cancelar',
+                text: 'Cerrar sesi&oacute;n',
+                action: 'cerrarsesion'
+            }]
         },{
             xtype: 'pagingtoolbar',
             dock: 'bottom',

@@ -26,3 +26,15 @@
 .icon-delete {
     background-image: url(../images/delete.png) !important;
 }
+
+.icon-buscar {
+    background-image: url(../images/buscar.png) !important;
+}
+
+.icon-modificar {
+    background-image: url(../images/modificar.png) !important;
+}
+
+.icon-cancelar {
+    background-image: url(../images/cancelar.png) !important;
+}

@@ -5,25 +5,24 @@
     $v_info = $_POST['reserva'];
 
     //print_r($v_info);die;
+
+    mb_internal_encoding('UTF-8');
  
     $v_data = json_decode(stripslashes($v_info));
- 
-    $v_nombre = utf8_encode($v_data->nombreapellidos);
-    $noboleto = utf8_encode($v_data->noboleto);
-    $nopasaporte = utf8_encode($v_data->nopasaporte);
-	$check = getimagesize($_FILES["image1"]["tmp_name"]);
+    
+    $v_nombre = utf8_decode($v_data->nombreapellidos);
+    $noboleto = utf8_decode($v_data->noboleto);
+    $nopasaporte = utf8_decode($v_data->nopasaporte);
+	/*$check = getimagesize($_FILES["image1"]["tmp_name"]);
    
-        $image = $_FILES['image1']['tmp_name'];
-        $imgContent = addslashes(file_get_contents($image));
+    $image = $_FILES['image1']['tmp_name'];
+    $imgContent = addslashes(file_get_contents($image));*/
 
- echo "File upload failed, please try again.";
-        } 
-    }else{
-        echo "Please select an image file to upload.";
-    }
+    /*$v_consulta = "INSERT INTO reserva (nombreapellidos, noboleto, nopasaporte,imagen1) 
+				VALUES ('$v_nombre','$noboleto','$nopasaporte', $imgContent)";*/
 
-    $v_consulta = "INSERT INTO reserva (nombreapellidos, noboleto, nopasaporte,imagen1) 
-				VALUES ('$v_nombre','$noboleto','$nopasaporte', $imgContent)";
+    $v_consulta = "INSERT INTO reserva (nombreapellidos, noboleto, nopasaporte) 
+                VALUES ('$v_nombre','$noboleto','$nopasaporte')";
     $v_f = $v_coneccion->query($v_consulta);
 
     $v_max_id = "Select max(idreserva) as idreserva from reserva";

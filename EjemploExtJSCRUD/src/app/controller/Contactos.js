@@ -118,6 +118,7 @@ Ext.define('EjemploExtJSCRUD.controller.Contactos', {
 
         v_store.remove(v_record);
 	    this.getContactosStore().sync();
+        this.getContactosStore().reload();
 
         // Cargar de nuevo el store.
         this.getContactosStore().load();
