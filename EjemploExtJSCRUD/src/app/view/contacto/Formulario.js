@@ -4,11 +4,11 @@ Ext.define('EjemploExtJSCRUD.view.contacto.Formulario', {
  
     requires: ['Ext.form.Panel','Ext.form.field.Text'],
  
-    title : 'Editar/Crear Contacto',
+    title : 'Datos de la reserva',
     layout: 'fit',
     modal: true,
     autoShow: true,
-    width: 280,
+    width: 430,
      
     iconCls: 'icon-user',
  
@@ -21,28 +21,38 @@ Ext.define('EjemploExtJSCRUD.view.contacto.Formulario', {
                  
             fieldDefaults: {
             	anchor: '100%',
-                labelAlign: 'left',
-                allowBlank: false,
+                labelAlign: 'left',                
                 combineErrors: true,
                 msgTarget: 'side'
             },
             items: [{
             	xtype: 'textfield',
                 name: 'id',
-                fieldLabel: 'id',
+                fieldLabel: 'idreserva',
                 hidden: true
             },{
                 xtype: 'textfield',
-                name: 'name',
-                fieldLabel: 'Nombre'
+                allowBlank: false,
+                name: 'nombreapellidos',
+                fieldLabel: 'Nom. pasajero'
+            },{
+                xtype: 'numberfield',
+                allowBlank: false,
+                name: 'noboleto',
+                fieldLabel: 'No. boleto'
             },{
                 xtype: 'textfield',
-                name: 'phone',
-                fieldLabel: 'Tel\u00E9fono'
+                allowBlank: false,
+                name: 'nopasaporte',
+                fieldLabel: 'No. Pasaporte'
             },{
-                xtype: 'textfield',
-                name: 'email',
-                fieldLabel: 'Email'
+                xtype: 'filefield',
+                name: 'imagen1',
+                fieldLabel: 'Foto 1'
+            },{
+                xtype: 'filefield',
+                name: 'imagen2',
+                fieldLabel: 'Foto 2'
             }]
         }];
          
@@ -52,14 +62,14 @@ Ext.define('EjemploExtJSCRUD.view.contacto.Formulario', {
             id: 'buttons',
             ui: 'footer',
             items: ['->', {
-                iconCls: 'icon-save',
-                text: 'Guardar',
-                action: 'guardar'
-            },{
                 iconCls: 'icon-reset',
                 text: 'Cancelar',
                 scope: this,
                 handler: this.close
+            },{
+                iconCls: 'icon-save',
+                text: 'Guardar',
+                action: 'crearreserva'
             }]
         }];
  

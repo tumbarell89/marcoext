@@ -87395,19 +87395,19 @@ Ext.define('Ext.form.field.Text', {
 
     
     
-    minLengthText : 'The minimum length for this field is {0}',
+    minLengthText : 'La longitud m&iacute;nima de este campo es {0}',
     
 
     
     
-    maxLengthText : 'The maximum length for this field is {0}',
+    maxLengthText : 'La longitud m&aacute;xima de este campo es {0}',
     
 
     
 
     
     
-    blankText : 'This field is required',
+    blankText : 'Este campo es requerido',
     
 
     

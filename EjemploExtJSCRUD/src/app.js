@@ -18,7 +18,7 @@ Ext.onReady(function(){
 				frame:true,
 				width: 320,
 				bodyPadding: 10,
-				
+				closable: false,
 				defaultType: 'textfield',
 				defaults: {
 					anchor: '100%'

@@ -1,6 +1,6 @@
 Ext.define('EjemploExtJSCRUD.store.Contactos', {
     extend: 'Ext.data.Store',
-    model: 'EjemploExtJSCRUD.model.Contacto',
+    model: 'EjemploExtJSCRUD.model.Reserva',
     autoLoad: true,
     pageSize: 35,
     autoLoad: {start: 0, limit: 35},
@@ -8,21 +8,21 @@ Ext.define('EjemploExtJSCRUD.store.Contactos', {
     proxy: {
         type: 'ajax',
         api: {
-            create: 'php/crearContacto.php',
+            create: 'php/crearReserva.php',
             read: 'php/listaContactos.php',
             update: 'php/actualizarContacto.php',
-            destroy: 'php/eliminarContacto.php',
+            destroy: 'php/eliminarReservacion.php',
         },
         reader: {
             type: 'json',
-            root: 'contactos',
+            root: 'reserva',
             successProperty: 'success'
         },
         writer: {
             type: 'json',
             writeAllFields: true,
             encode: true,
-            root: 'contactos'
+            root: 'reserva'
         }
     }
 });

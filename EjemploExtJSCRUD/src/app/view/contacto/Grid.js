@@ -10,20 +10,25 @@ Ext.define('EjemploExtJSCRUD.view.contacto.Grid' ,{
     store: 'Contactos',
  
     columns: [{
-        header: "Nombre",
+        header: "Id reserva",
+        width: 80,
+        //flex:1,
+        dataIndex: 'idreserva'
+    },{
+        header: "Nombre y apellidos",
         width: 170,
         flex:1,
-        dataIndex: 'name'
+        dataIndex: 'nombreapellidos'
     },{
-        header: "Telefono",
+        header: "No. boleto",
         width: 160,
         flex:1,
-        dataIndex: 'phone'
+        dataIndex: 'noboleto'
     },{
-        header: "Email",
+        header: "No. pasaporte",
         width: 170,
         flex:1,
-        dataIndex: 'email'
+        dataIndex: 'nopasaporte'
     }],
  
     initComponent: function() {
@@ -31,13 +36,13 @@ Ext.define('EjemploExtJSCRUD.view.contacto.Grid' ,{
             xtype: 'toolbar',
             items: [{
                 iconCls: 'icon-save',
-                text: 'Agregar',
+                text: 'Adicionar reserva',
                 action: 'agregar'
-            },{
+            },'|',{
                 iconCls: 'icon-delete',
-                text: 'Eliminar',
-                action: 'eliminar'
-            }]
+                text: 'Eliminar reserva',
+                action: 'eliminarreservacion'
+            },'|']
         },{
             xtype: 'pagingtoolbar',
             dock: 'bottom',

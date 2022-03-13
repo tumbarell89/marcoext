@@ -43,6 +43,6 @@
     echo json_encode(array(
         "success" => true,
         "total" => $v_total,
-        "contactos" => $v_array_contactos
+        "reserva" => $v_array_contactos
     ));
 ?>
