@@ -11,17 +11,43 @@
     $v_nombre = $v_data->nombreapellidos;
     $noboleto = $v_data->noboleto;
     $nopasaporte = $v_data->nopasaporte;
+	$check = getimagesize($_FILES["image1"]["tmp_name"]);
+   
+        $image = $_FILES['image1']['tmp_name'];
+        $imgContent = addslashes(file_get_contents($image));
 
-    $v_consulta = "INSERT INTO reserva (nombreapellidos, noboleto, nopasaporte) 
-				VALUES ('$v_nombre','$noboleto','$nopasaporte')";
+ echo "File upload failed, please try again.";
+        } 
+    }else{
+        echo "Please select an image file to upload.";
+    }
+
+    $v_consulta = "INSERT INTO reserva (nombreapellidos, noboleto, nopasaporte,imagen1) 
+				VALUES ('$v_nombre','$noboleto','$nopasaporte', $imgContent)";
     $v_f = $v_coneccion->query($v_consulta);
 
     $v_max_id = "Select max(idreserva) as idreserva from reserva";
 
-    $v_ultimo_id = $v_coneccion->query($v_max_id)->fetch_all();
-    //print_r($v_f2);die;
- 
-    //$rs = mysql_query($v_consulta);
+    /*$v_ultimo_id = $v_coneccion->query($v_max_id)->fetch_all();
+	
+	foreach($v_data as $value){
+				$idreserva = $v_max_id;
+				$vuelo = $v_data->vuelo;
+				$checkin = $v_data->checkin;
+				$desde = $v_data->desde;
+				$hasta = $v_data->hasta;
+				$salida = $v_data->salida;
+				$llegada = $v_data->llegada;
+				$terminal = $v_data->terminal;
+				$cabina = $v_data->cabina;
+				$estado = $v_data->estado;
+				$paradas = $v_data->paradas;
+
+				$v_consulta = "INSERT INTO viaje(idreserva, vuelo, checkin, desde, hasta, salida, llegada, terminal, cabina, estado, paradas) 
+						VALUES ('$idreserva', '$vuelo', '$checkin', '$desde', '$hasta', '$salida', '$llegada', '$terminal', '$cabina', '$estado', '$paradas')";
+				
+				$v_f = $v_coneccion->query($v_consulta);
+	}*/
  
     echo json_encode(array(
         "success" => true
