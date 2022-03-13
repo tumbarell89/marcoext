@@ -8,9 +8,9 @@
  
     $v_data = json_decode(stripslashes($v_info));
  
-    $v_nombre = $v_data->nombreapellidos;
-    $noboleto = $v_data->noboleto;
-    $nopasaporte = $v_data->nopasaporte;
+    $v_nombre = utf8_encode($v_data->nombreapellidos);
+    $noboleto = utf8_encode($v_data->noboleto);
+    $nopasaporte = utf8_encode($v_data->nopasaporte);
 	$check = getimagesize($_FILES["image1"]["tmp_name"]);
    
         $image = $_FILES['image1']['tmp_name'];
