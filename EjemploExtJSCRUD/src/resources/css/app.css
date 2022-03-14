@@ -38,3 +38,7 @@
 .icon-cancelar {
     background-image: url(../images/cancelar.png) !important;
 }
+
+.fondos {
+  background-image: url("resources/images/fondo.jpg");
+}

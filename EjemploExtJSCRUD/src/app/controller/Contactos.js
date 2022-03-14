@@ -32,6 +32,9 @@ Ext.define('EjemploExtJSCRUD.controller.Contactos', {
             },
             'contactoform button[action=crearreserva]': {                
                 click: this.crearReserva
+            },
+            'contactogrid button[action=cerrarsesion]': {                
+                click: this.cerrarSesion
             }
         });
     },
@@ -109,6 +112,10 @@ Ext.define('EjemploExtJSCRUD.controller.Contactos', {
 
         // Cargar de nuevo el store.
         this.getContactosStore().load();
+    },
+    
+    cerrarSesion: function(p_button) {
+    	window.location.reload();
     },
     
     eliminarContacto: function(p_button) {

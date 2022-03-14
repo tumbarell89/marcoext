@@ -4,7 +4,7 @@ Ext.define('EjemploExtJSCRUD.store.Contactos', {
     autoLoad: true,
     pageSize: 35,
     autoLoad: {start: 0, limit: 35},
- 
+    
     proxy: {
         type: 'ajax',
         api: {

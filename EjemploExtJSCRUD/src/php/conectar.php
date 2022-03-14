@@ -6,7 +6,7 @@
 	$v_user = "root";
  
 	// Contrasenha de la base de datos.
-	$v_password = "root";
+	$v_password = "";
  
 	// Nombre de la base de datos.
 	$v_db = "blog";

@@ -1,75 +1,215 @@
-Ext.define('EjemploExtJSCRUD.view.contacto.Grid' ,{
-    extend: 'Ext.grid.Panel',
-    alias: 'widget.contactogrid',
- 
-    requires: ['Ext.toolbar.Paging'],
- 
-    iconCls: 'icon-grid',
- 
-    title: 'Listado de reservas',
-    store: 'Contactos',
- 
-    columns: [{
-        header: "Id reserva",
-        width: 80,
-        //flex:1,
-        dataIndex: 'idreserva'
-    },{
-        header: "Nombre y apellidos",
-        width: 170,
-        flex:1,
-        dataIndex: 'nombreapellidos'
-    },{
-        header: "No. boleto",
-        width: 160,
-        flex:1,
-        dataIndex: 'noboleto'
-    },{
-        header: "No. pasaporte",
-        width: 170,
-        flex:1,
-        dataIndex: 'nopasaporte'
-    }],
- 
-    initComponent: function() {
-    	this.dockedItems = [{
-            xtype: 'toolbar',
-            items: [{
-                iconCls: 'icon-save',
-                text: 'Adicionar reserva',
-                action: 'agregar'
-            },'|',{
-                iconCls: 'icon-modificar',
-                text: 'Modificar reserva',
-                action: 'modificarreserva'
-            },'|',{
-                iconCls: 'icon-delete',
-                text: 'Eliminar reserva',
-                action: 'eliminarreservacion'
-            },'|',{
-                xtype: 'textfield',
-                //allowBlank: false,
-                name: 'nombreapellidos',
-                //fieldLabel: 'Buscar',
-                emptyText: 'Buscar por Id. reserva'
-            },{
-                iconCls: 'icon-buscar',
-                //text: 'Eliminar reserva',
-                action: 'buscarreservacion'
-            },'->',{
-                iconCls: 'icon-cancelar',
-                text: 'Cerrar sesi&oacute;n',
-                action: 'cerrarsesion'
-            }]
-        },{
-            xtype: 'pagingtoolbar',
-            dock: 'bottom',
-            store: 'Contactos',
-            displayInfo: true,
-            displayMsg: 'Mostrando Contactos {0} - {1} de {2}',
-            emptyMsg: "Ning\u00FAn contacto encontrado."
-        }];
-     
-        this.callParent(arguments);
+CmpPrincipal = function (opciones) {
+    Ext.apply(Ext.data.proxy.Ajax.prototype, {
+        actionMethods: {create: "POST", read: "POST", update: "POST", destroy: "POST"}
+    });
+    var _this = this;
+    //***barra de progreso
+    this.BarraEstado = function (mensaje) {
+        Ext.MessageBox.show({
+            msg: mensaje + '.',
+            title: 'Por favor espere...',
+            width: 300,
+            wait: true
+        });
+    };
+
+    this.btnAdicionar = new Ext.Button({
+        iconCls: 'icon-save',
+        text: 'Adicionar reserva',
+        //disabled: true,
+        handler: function () {
+             _this.Adicionar();
+        }
+    });
+    this.btnModificar = new Ext.Button({
+        iconCls: 'icon-modificar',
+        text: 'Modificar reserva',
+        //disabled: true,
+        handler: function () {
+             _this.Modificar(_this.smPrincipal);
+        }
+    });
+
+    this.btnEliminar = new Ext.Button({
+        iconCls: 'icon-delete',
+        text: 'Eliminar reserva',
+        //disabled: true,
+        handler: function () {
+             _this.Eliminar(_this.smPrincipal);
+        }
+    });
+    
+    this.buscar = new Ext.form.field.Text({
+        name: 'nombreapellidos',
+        allowBlank: false,        
+        emptyText: 'Buscar por Id. reserva'
+    });
+    
+    this.btnBuscar = new Ext.Button({
+        iconCls: 'icon-buscar',
+        //disabled: true,
+        handler: function () {
+             _this.Buscar();
+        }
+    });
+    this.btnCerrar = new Ext.Button({
+        iconCls: 'icon-cancelar',
+        text: 'Cerrar sesi&oacute;n',
+        //disabled: true,
+        handler: function () {
+             _this.cerrarSesion();
+        }
+    });
+
+    //creando el repositorio de datos  
+    this.stPrincipal = new Ext.data.Store({
+        //url: 'cargarPrincipal',
+        //autoLoad: true,
+        fields: [
+            {name: 'idreserva'},
+            {name: 'nombreapellidos'},
+            {name: 'noboleto'},
+            {name: 'nopasaporte'}
+
+        ],
+        proxy: {
+            type: 'ajax',
+            url: 'php/listaContactos.php',
+            //method:'POST',
+            reader: {
+                totalProperty: 'total',
+                root: "reserva"
+            }
+        },
+        listeners: {
+            beforeload: function (st) {
+            },
+            load: function () {
+                //Ext.MessageBox.hide();
+                // _this.cargarDatosGrid(_this.stCapacidaProd);
+            }
+        }
+    });
+    this.smPrincipal = Ext.create('Ext.selection.RowModel', {
+        //singleSelect: true,
+        mode: "SINGLE",
+        listeners: {
+            select: function (s, i, r) {
+                if (opciones.editableinversion == 1)
+                    _this.btnEliminarPrincipal.enable();
+            },
+            deselect: function (s, i, r) {
+                _this.btnEliminarPrincipal.disable();
+
+            }
+
+        }
+    });
+
+    this.cmPrincipal = [
+        {
+            text: 'No. Reserva',
+            minWidth: 250,
+            flex: 1,
+            dataIndex: 'idreserva',
+            align: 'left',
+        },
+        {
+            text: 'Nombre y Apellidos',
+            minWidth: 80,
+            flex: 1,
+            resizable: false,
+            dataIndex: 'nombreapellidos',
+            align: 'left',
+        },
+        {
+            text: 'No. boleto',
+            minWidth: 80,
+            flex: 1,
+            resizable: false,
+            dataIndex: 'noboleto',
+            align: 'left',
+        },
+        {
+            text: 'No. pasaporte',
+            minWidth: 80,
+            flex: 1,
+            resizable: false,
+            dataIndex: 'nopasaporte',
+            align: 'left',
+        },
+
+    ];
+
+    this.gpPrincipal = new Ext.grid.Panel({
+        region: 'center',
+        columnLines: true,
+        layout: 'border',
+        bodyStyle: 'background:white',
+        selModel: _this.smPrincipal,
+        plugins: [Ext.create('Ext.grid.plugin.CellEditing', {
+            clicksToEdit: 2,
+            listeners: {
+                beforeedit: function (yo, e) {
+                }
+            },
+        })],
+        editable: true,
+        store: _this.stPrincipal,
+        listeners: {
+            click: function () {
+            },
+            focus: function () {
+            },
+            edit: function (obj) {
+
+            },
+            beforeedit: function (obj) {
+
+
+            }
+        },
+        loadMask: {
+            msg: 'Cargando...'
+        },
+        viewConfig: {
+            getRowClass: function (record, index) {
+
+
+            }
+        },
+        columns: _this.cmPrincipal,
+        tbar: ['|',_this.btnAdicionar,'|', _this.btnModificar,'|', _this.btnEliminar,'|',_this.buscar,_this.btnBuscar,'|','->',_this.btnCerrar ],
+        bbar: new Ext.PagingToolbar({
+            pageSize: 20,
+            store: _this.stPrincipal,
+            displayInfo: true
+        })
+    });
+
+    this.pPrincipal = new Ext.Panel({
+        layout: 'border',
+        region: 'center',
+        border: false,
+        maximized: true,
+        frame: true,
+        // width: 1070,
+        height: 1500,
+        items: [_this.gpPrincipal]
+    });
+    
+    this.Adicionar = function () {
+        objFormulario = new CmpFormulario();
+        objFormulario.winVistaAdicionar.show();
     }
-});
+    this.Modificar = function (accion) {
+        window.location.reload();
+    }
+    this.Eliminar = function (accion) {
+        window.location.reload();
+    }
+    this.cerrarSesion = function (accion) {
+        window.location.reload();
+    }
+
+}
