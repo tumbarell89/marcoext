@@ -3,6 +3,7 @@ CmpPrincipal = function (opciones) {
         actionMethods: {create: "POST", read: "POST", update: "POST", destroy: "POST"}
     });
     var _this = this;
+    var p_record = null;
     //***barra de progreso
     this.BarraEstado = function (mensaje) {
         Ext.MessageBox.show({
@@ -69,7 +70,10 @@ CmpPrincipal = function (opciones) {
             {name: 'idreserva'},
             {name: 'nombreapellidos'},
             {name: 'noboleto'},
-            {name: 'nopasaporte'}
+            {name: 'nopasaporte'},
+            {name: 'imagen1'},
+            {name: 'imagen2'}
+            
 
         ],
         proxy: {
@@ -95,11 +99,9 @@ CmpPrincipal = function (opciones) {
         mode: "SINGLE",
         listeners: {
             select: function (s, i, r) {
-                if (opciones.editableinversion == 1)
-                    _this.btnEliminarPrincipal.enable();
+                p_record=i;
             },
             deselect: function (s, i, r) {
-                _this.btnEliminarPrincipal.disable();
 
             }
 
@@ -203,7 +205,10 @@ CmpPrincipal = function (opciones) {
         objFormulario.winVistaAdicionar.show();
     }
     this.Modificar = function (accion) {
-        window.location.reload();
+        console.log(p_record);
+        objFormulario = new CmpFormulario();
+        objFormulario.winVistaAdicionar.down('form').loadRecord(p_record);
+        objFormulario.winVistaAdicionar.show();
     }
     this.Eliminar = function (accion) {
         window.location.reload();

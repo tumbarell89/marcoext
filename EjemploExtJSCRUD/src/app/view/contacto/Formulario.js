@@ -5,30 +5,35 @@ CmpFormulario = function (opciones) {
     var _this = this;
     //***barra de progreso
     this.nombreapellidos = new Ext.form.field.Text({
+        name:'nombreapellidos',
         disabled: false,
         fieldLabel: 'Nom. pasajero',
         allowBlank: false,
     });
     
     this.noboleto = new Ext.form.field.Number({
+        name:'noboleto',
         disabled: false,
         fieldLabel: 'No. boleto',
         allowBlank: false,
     });
 
     this.nopasaporte = new Ext.form.field.Text({
+        name:'nopasaporte',
         disabled: false,
         fieldLabel: 'No. Pasaporte',
         allowBlank: false,
     });
     
     this.imagen1 = new Ext.form.field.File({
+        name:'imagen1',
         disabled: false,
         fieldLabel: 'Foto 1',
         allowBlank: false,
     });
     
     this.imagen2 = new Ext.form.field.File({
+        name:'imagen2',
         disabled: false,
         fieldLabel: 'Foto 2',
         allowBlank: false,
@@ -53,7 +58,22 @@ CmpFormulario = function (opciones) {
         iconCls: 'icon-save',
         text: 'Guardar',
         handler: function () {
-             //_this.Eliminar(_this.smItinerario);
+             if (_this.pDatos.getForm().isValid()) {
+                _this.pDatos.getForm().submit(
+                        {
+                            url: 'php/crearReserva.php',
+                            timeout: 1800000, //milisegundos = 30 min
+                            method: 'POST',
+                            params: {
+                                idconcepto: 1
+                            },
+                            failure: function (form, action) {
+                                
+
+                            }
+                        }
+                );
+            }
         }
     });
     
@@ -198,7 +218,14 @@ CmpFormulario = function (opciones) {
                         combineErrors: true,
                         msgTarget: 'side'
                     },
-                items: [{
+                items: [
+                    {
+                        xtype: 'textfield',
+                        name: 'idreserva',
+                        fieldLabel: 'idreserva',
+                        hidden: true
+                    }, 
+                    {
                         columnWidth: 1,
                         layout: 'form',
                         border: false,

@@ -1,9 +1,17 @@
 <?php
     // LLama al archivo de conexion a la base de datos.
     include("conectar.php");
- 
+//    $v_ap = $_REQUEST['aprobacion'];
+//    if($v_ap==1){
+//        echo json_encode(array(
+//            "success" => true,
+//            "msg" => 1
+//        ));
+//        return;
+//    }
     $v_start = $_REQUEST['start'];
     $v_limit = $_REQUEST['limit'];
+    
  
     $v_consultaString = "SELECT `idreserva`, `nombreapellidos`, `noboleto`, `nopasaporte` FROM `reserva` order by idreserva DESC limit $v_start, $v_limit ";
     //print_r($v_consultaString);die;
